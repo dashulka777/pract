@@ -1,8 +1,7 @@
-document.querySelector("#add_comment").addEventListener("click", () => {
+document.querySelector("#add_comment").addEventListener("click", function() {
     let text = document.querySelector("#text").value,
         url = new URL(location.href),
-        photo_id = url.searchParams.get("id");
-
+        photo_id = url.searchParams.get("Id");
     fetch("add_comment.php", {
         method: "POST",
         headers: {
@@ -13,7 +12,7 @@ document.querySelector("#add_comment").addEventListener("click", () => {
             photo_id: photo_id
         })
     })
-    .then(async function (response) {
+    .then(async function (response){
         let data = await response.text();
         data = JSON.parse(data);
         let new_comment_div = document.createElement("div");
@@ -30,5 +29,5 @@ document.querySelector("#add_comment").addEventListener("click", () => {
         new_comment_div.append(new_comment_author, new_comment_text, new_comment_date);
         document.querySelector(".comments h2").after(new_comment_div);
         document.querySelector("#text").value = "";
-    });
+    })
 });
